@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuộc Phiêu Lưu Của Các Bạn Thú</title>
+
+    <!-- Chặn bot lấy nội dung để không hiện ảnh khi chia sẻ -->
+    <meta name="robots" content="noindex,nosnippet" />
+
     <style>
       body {
         margin: 0;
@@ -174,7 +178,7 @@
         );
       }
 
-      /* Jumpscare CSS */
+      /* Jumpscare */
       .jumpscare {
         position: fixed;
         top: 0;
@@ -196,6 +200,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        display: none; /* Quan trọng: ẩn ảnh khỏi preview */
       }
 
       .scary-text {
@@ -279,33 +284,25 @@
 
     <script>
       function startGame() {
-        // Biến mất dần giao diện cute
         document.getElementById("cute-game").style.opacity = "0";
 
-        // Chờ 1 giây rồi hiện jumpscare
         setTimeout(() => {
-          // Hiện jumpscare
           const jumpscare = document.getElementById("jumpscare");
           jumpscare.style.display = "flex";
 
-          // Thay đổi font chữ của toàn bộ trang
           document.body.style.fontFamily = '"Times New Roman", serif';
-
-          // Phát âm thanh thét
-          const scream = new Audio();
-          scream.src = "/Level1.wav";
+          const scream = new Audio("/Level1.wav");
           scream.volume = 1.0;
           scream.play();
 
-          // Thêm hiệu ứng rung màn hình
           document.body.style.animation = "shake 0.1s infinite";
-
-          // Thay đổi nền trang thành đen
           document.body.style.backgroundColor = "#000000";
+
+          // Cho phép hiển thị ảnh sau khi bắt đầu
+          document.querySelector(".scary-image").style.display = "block";
         }, 1000);
       }
 
-      // Tạo hiệu ứng đám mây thêm cute
       function createClouds() {
         const clouds = document.querySelectorAll(".cloud");
         clouds.forEach((cloud) => {
@@ -332,7 +329,6 @@
         });
       }
 
-      // Chạy hàm tạo mây khi trang tải xong
       window.onload = createClouds;
     </script>
   </body>
