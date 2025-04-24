@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuộc Phiêu Lưu Của Các Bạn Thú</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        background-color: #ffebf7;
+        color: #5a3e84;
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      .game-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ffd1ea, #c5e7ff);
+        transition: opacity 1s;
+      }
+
+      .game-title {
+        font-size: 48px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ff6bc5;
+        text-shadow: 2px 2px 4px rgba(255, 107, 197, 0.4);
+      }
+
+      .game-subtitle {
+        font-size: 24px;
+        margin-bottom: 40px;
+        color: #7e60af;
+      }
+
+      .cute-characters {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .character {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: bounce 2s infinite alternate;
+      }
+
+      .character-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .character-name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .bunny {
+        background-color: #ffb6c1;
+      }
+
+      .kitty {
+        background-color: #b0e0e6;
+      }
+
+      .puppy {
+        background-color: #ffda9e;
+      }
+
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .game-description {
+        font-size: 18px;
+        text-align: center;
+        max-width: 600px;
+        margin-bottom: 40px;
+        line-height: 1.6;
+        color: #6a5aad;
+      }
+
+      .start-button {
+        padding: 15px 60px;
+        font-size: 24px;
+        background-color: #ff8ad8;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .start-button:hover {
+        background-color: #ff69b4;
+        transform: scale(1.05);
+      }
+
+      .cloud {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        opacity: 0.8;
+      }
+
+      .cloud1 {
+        width: 150px;
+        height: 60px;
+        top: 10%;
+        left: 10%;
+        animation: floatCloud 30s linear infinite;
+      }
+
+      .cloud2 {
+        width: 120px;
+        height: 50px;
+        top: 20%;
+        right: 15%;
+        animation: floatCloud 25s linear infinite reverse;
+      }
+
+      .cloud3 {
+        width: 180px;
+        height: 70px;
+        bottom: 15%;
+        right: 30%;
+        animation: floatCloud 35s linear infinite;
+      }
+
+      @keyframes floatCloud {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(1200px);
+        }
+      }
+
+      .rainbow {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 10px;
+        background: linear-gradient(
+          to right,
+          violet,
+          indigo,
+          blue,
+          green,
+          yellow,
+          orange,
+          red
+        );
+      }
+
+      /* Jumpscare CSS */
+      .jumpscare {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .scary-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .scary-text {
+        position: absolute;
+        color: #ff0000;
+        font-size: 120px;
+        font-weight: bold;
+        font-family: "Arial", sans-serif;
+        text-shadow: 0 0 20px #ff0000;
+        animation: shake 0.1s infinite;
+        z-index: 1001;
+      }
+
+      @keyframes shake {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+          transform: translate(-10px, -10px) rotate(-2deg);
+        }
+        50% {
+          transform: translate(10px, 10px) rotate(2deg);
+        }
+        75% {
+          transform: translate(-5px, 5px) rotate(-1deg);
+        }
+        100% {
+          transform: translate(5px, -5px) rotate(1deg);
+        }
+      }
+
+      .game-footer {
+        position: absolute;
+        bottom: 20px;
+        font-size: 14px;
+        color: #9370db;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container" id="cute-game">
+      <div class="cloud cloud1"></div>
+      <div class="cloud cloud2"></div>
+      <div class="cloud cloud3"></div>
+
+      <h1 class="game-title">Cuộc Phiêu Lưu Của Các Bạn Thú</h1>
+      <h2 class="game-subtitle">Hãy cùng khám phá vương quốc cầu vồng!</h2>
+
+      <div class="cute-characters">
+        <div class="character">
+          <div class="character-circle bunny">🐰</div>
+          <div class="character-name">Thỏ Hồng</div>
+        </div>
+        <div class="character">
+          <div class="character-circle kitty">🐱</div>
+          <div class="character-name">Mèo Xanh</div>
+        </div>
+        <div class="character">
+          <div class="character-circle puppy">🐶</div>
+          <div class="character-name">Cún Vàng</div>
+        </div>
+      </div>
+
+      <p class="game-description">
+        Chào mừng bạn đến với thế giới diệu kỳ của các bạn thú dễ thương! Hãy
+        cùng tham gia cuộc phiêu lưu tìm kiếm kho báu cầu vồng và kết bạn với
+        các sinh vật đáng yêu trên hành trình của mình!
+      </p>
+
+      <button class="start-button" onclick="startGame()">BẮT ĐẦU CHƠI</button>
+
+      <div class="game-footer">© 2025 Game Dễ Thương • Phiên bản 1.0</div>
+
+      <div class="rainbow"></div>
+    </div>
+
+    <div id="jumpscare" class="jumpscare">
+      <img class="scary-image" src="./OIP.jpeg" alt="Ma" />
+      <div class="scary-text">AAAAAHHH!!!</div>
+    </div>
+
+    <script>
+      function startGame() {
+        // Biến mất dần giao diện cute
+        document.getElementById("cute-game").style.opacity = "0";
+
+        // Chờ 1 giây rồi hiện jumpscare
+        setTimeout(() => {
+          // Hiện jumpscare
+          const jumpscare = document.getElementById("jumpscare");
+          jumpscare.style.display = "flex";
+
+          // Thay đổi font chữ của toàn bộ trang
+          document.body.style.fontFamily = '"Times New Roman", serif';
+
+          // Phát âm thanh thét
+          const scream = new Audio();
+          scream.src = "/Level1.wav";
+          scream.volume = 1.0;
+          scream.play();
+
+          // Thêm hiệu ứng rung màn hình
+          document.body.style.animation = "shake 0.1s infinite";
+
+          // Thay đổi nền trang thành đen
+          document.body.style.backgroundColor = "#000000";
+        }, 1000);
+      }
+
+      // Tạo hiệu ứng đám mây thêm cute
+      function createClouds() {
+        const clouds = document.querySelectorAll(".cloud");
+        clouds.forEach((cloud) => {
+          const before = document.createElement("div");
+          before.style.position = "absolute";
+          before.style.width = "80%";
+          before.style.height = "80%";
+          before.style.borderRadius = "50%";
+          before.style.backgroundColor = "white";
+          before.style.top = "-20%";
+          before.style.left = "10%";
+
+          const after = document.createElement("div");
+          after.style.position = "absolute";
+          after.style.width = "80%";
+          after.style.height = "80%";
+          after.style.borderRadius = "50%";
+          after.style.backgroundColor = "white";
+          after.style.top = "-10%";
+          after.style.right = "10%";
+
+          cloud.appendChild(before);
+          cloud.appendChild(after);
+        });
+      }
+
+      // Chạy hàm tạo mây khi trang tải xong
+      window.onload = createClouds;
+    </script>
+  </body>
+</html>
